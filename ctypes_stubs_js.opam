@@ -17,4 +17,5 @@ depends: [
   "integers_stubs_js"
   "dune" {build & >= "2.9"}
   "ctypes" {with-test}
+  "ppx_expect" {with-test}
 ]

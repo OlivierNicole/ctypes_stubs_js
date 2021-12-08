@@ -1,6 +1,9 @@
 //Provides: ldouble_init
 function ldouble_init (unit) { return 0 }
 
+//Provides: ctypes_ldouble_of_float
+function ctypes_ldouble_of_float(x) { return x }
+
 //Provides: ctypes_ldouble_to_float
 function ctypes_ldouble_to_float (x) { return x }
 
@@ -13,7 +16,8 @@ function ctypes_ldouble_of_int(x) { return x }
 //Provides: ctypes_ldouble_format
 //Requires: caml_format_float, caml_string_of_jsbytes
 function ctypes_ldouble_format(width, prec, x) {
-  return caml_format_float(caml_string_of_jsbytes("%" + width + "." + prec + "f"));
+  var fmt = caml_string_of_jsbytes("%" + width + "." + prec + "f");
+  return caml_format_float(fmt, x);
 }
 
 //Provides: ctypes_ldouble_of_string
