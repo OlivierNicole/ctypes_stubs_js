@@ -1,0 +1,12 @@
+stages:
+  - test
+
+test:
+  image: registry.gitlab.com/tezos/opam-repository:runtime-build-test-dependencies--214c6f6be54943b82adc9a7da318e0153e906e86
+  stage: test
+  script:
+    - opam remote add default http://opam.ocaml.org
+    - opam depext --with-test
+    - opam install --yes --with-test --with-doc --deps-only .
+    - . scripts/install-nvm.sh
+    - dune build @runtest
