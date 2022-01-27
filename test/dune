@@ -3,6 +3,21 @@
  (inline_tests
   (modes js native))
  (libraries ctypes ctypes_stubs_js)
+ (modules
+  (:standard \ link))
  (js_of_ocaml)
  (preprocess
   (pps ppx_expect)))
+
+(executable
+ (name link)
+ (libraries ctypes ctypes_stubs_js)
+ (link_flags -linkall)
+ (js_of_ocaml)
+ (modules link)
+ (modes js native))
+
+(rule
+ (alias runtest)
+ (action
+  (run node %{dep:./link.bc.js})))

@@ -431,7 +431,6 @@ function integers_intptr_t_size(unit) {
 }
 
 //Provides: integers_ptrdiff_t_size
-//Requires: caml_failwith
 function integers_ptrdiff_t_size(unit) {
   return 4;
 }
@@ -479,62 +478,64 @@ function ctypes_block_address(_) {
 }
 
 //Provides: ctypes_typeof_clock_t
-//Requires: caml_failwith
 function ctypes_typeof_clock_t(unit) {
   return 6;
 }
 //Provides: ctypes_typeof_dev_t
-//Requires: caml_failwith
 function ctypes_typeof_dev_t(unit) {
   return 6;
 }
 //Provides: ctypes_typeof_ino_t
-//Requires: caml_failwith
 function ctypes_typeof_ino_t(unit) {
   return 6;
 }
 //Provides: ctypes_typeof_mode_t
-//Requires: caml_failwith
 function ctypes_typeof_mode_t(unit) {
   return 6;
 }
 //Provides: ctypes_typeof_nlink_t
-//Requires: caml_failwith
 function ctypes_typeof_nlink_t(unit) {
   return 6;
 }
 //Provides: ctypes_typeof_off_t
-//Requires: caml_failwith
 function ctypes_typeof_off_t(unit) {
   return 2;
 }
 //Provides: ctypes_typeof_pid_t
-//Requires: caml_failwith
 function ctypes_typeof_pid_t(unit) {
   return 2;
 }
 //Provides: ctypes_typeof_ssize_t
-//Requires: caml_failwith
 function ctypes_typeof_ssize_t(unit) {
   return 2;
 }
 //Provides: ctypes_typeof_time_t
-//Requires: caml_failwith
 function ctypes_typeof_time_t(unit) {
   return 6;
 }
 //Provides: ctypes_typeof_useconds_t
-//Requires: caml_failwith
 function ctypes_typeof_useconds_t(unit) {
   return 6;
 }
 //Provides: ctypes_sizeof_sigset_t
-//Requires: caml_failwith
 function ctypes_sizeof_sigset_t(unit) {
   return 4;
 }
 //Provides: ctypes_alignmentof_sigset_t
-//Requires: caml_failwith
 function ctypes_alignmentof_sigset_t(unit) {
   return 4;
+}
+
+//The following should be provied by integers_stubs_js
+
+//Provides: integers_uint32_to_hexstring
+//Requires: caml_failwith
+function integers_uint32_to_hexstring(x) {
+  caml_failwith("integers_uint32_to_hexstring not implemented");
+}
+
+//Provides: integers_uint64_to_hexstring
+//Requires: caml_failwith
+function integers_uint64_to_hexstring(x) {
+  caml_failwith("integers_uint64_to_hexstring not implemented");
 }
