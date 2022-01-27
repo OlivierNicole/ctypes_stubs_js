@@ -82,8 +82,7 @@ let%expect_test "mul" =
 let%expect_test "div" =
   test_bin div ;
   print_digest [%expect.output] ;
-  [%expect
-    {|
+  [%expect {|
     797d962017a927c35e918bee9f3e487f |}]
 
 let%expect_test "inv" =
@@ -167,8 +166,7 @@ let%expect_test "equal" =
         ts)
     ts ;
   print_digest [%expect.output] ;
-  [%expect
-    {|
+  [%expect {|
     8cc546c98b7de7c32524ce8327bc645d |}]
 
 let%expect_test "compare" =
@@ -180,6 +178,5 @@ let%expect_test "compare" =
         ts)
     ts ;
   print_digest [%expect.output] ;
-  [%expect
-    {|
+  [%expect {|
     d1eb110aaf27c2dcea84a4a80704fb3d |}]
