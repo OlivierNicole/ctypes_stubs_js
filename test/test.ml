@@ -1,4 +1,5 @@
 open! Ctypes
+
 let%expect_test _ =
-  print_endline "hello";
+  print_endline "hello" ;
   [%expect {| hello |}]

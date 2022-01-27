@@ -115,16 +115,16 @@ function ctypes_ldouble_atanhl(x){ return Math.atanh(x)}
 function ctypes_ldouble_ceill(x){ return Math.ceil(x)}
 //Provides: ctypes_ldouble_floorl
 function ctypes_ldouble_floorl(x){ return Math.floor(x)}
-//Provides: ctypes_ldouble_absl
-function ctypes_ldouble_absl(x){ return Math.abs(x)}
+//Provides: ctypes_ldouble_fabsl
+function ctypes_ldouble_fabsl(x){ return Math.abs(x)}
 
 //Provides: ctypes_ldouble_atan2l
-function ctypes_ldouble_atan2l(x) { return Math.atan2(x)}
+function ctypes_ldouble_atan2l(x,y) { return Math.atan2(x,y)}
 //Provides: ctypes_ldouble_hypotl
-function ctypes_ldouble_hypotl(x) { return Math.hypot(x)}
-//Provides: ctypes_ldouble_reml
+function ctypes_ldouble_hypotl(x,y) { return Math.hypot(x,y)}
+//Provides: ctypes_ldouble_remainderl
 //Requires: caml_failwith
-function ctypes_ldouble_reml(x) { caml_failwith("ctypes: remainderl does not exist on current platform") }
+function ctypes_ldouble_remainderl(x) { caml_failwith("ctypes: remainderl does not exist on current platform") }
 
 //Provides: ctypes_ldouble_copysignl
 function ctypes_ldouble_copysignl(a,b) {
@@ -156,7 +156,7 @@ function ctypes_ldouble_classify(x){ return (caml_classify_float(x))}
 
 //Provides: ctypes_ldouble_min
 function ctypes_ldouble_min(unit) {
-  return Number.MIN_VALUE;
+  return -Number.MAX_VALUE;
 }
 
 //Provides: ctypes_ldouble_max
@@ -194,9 +194,17 @@ function ctypes_ldouble_mant_dig(unit) {
 }
 
 //Provides: CtypesComplex
+//Requires: caml_compare_val
 function CtypesComplex(re,im) {
   this.re = re;
   this.im = im;
+}
+
+CtypesComplex.prototype.compare = function (b,total) {
+  var a = this;
+  var r = caml_compare_val(a.re, b.re,total);
+  if(r == 0) return caml_compare_val(a.im,b.im,total)
+  else return r
 }
 
 //Provides: ctypes_ldouble_complex_make
@@ -211,16 +219,16 @@ function ctypes_ldouble_complex_real(x) { return x.re }
 
 //Provides: ctypes_ldouble_complex_imag
 //Requires: CtypesComplex
-function ctypes_ldouble_complex_imag(x) { return x.re }
+function ctypes_ldouble_complex_imag(x) { return x.im }
 
 
 //Provides: ctypes_ldouble_complex_neg
 //Requires: ctypes_ldouble_complex_make
 function ctypes_ldouble_complex_neg(x) { return ctypes_ldouble_complex_make(-x.re, -x.im); }
 
-//Provides: ctypes_ldouble_complex_conj
+//Provides: ctypes_ldouble_complex_conjl
 //Requires: ctypes_ldouble_complex_make
-function ctypes_ldouble_complex_conj(x) { return ctypes_ldouble_complex_make(x.re, -x.im); }
+function ctypes_ldouble_complex_conjl(x) { return ctypes_ldouble_complex_make(x.re, -x.im); }
 
 
 //Provides: ctypes_ldouble_complex_add
@@ -233,12 +241,15 @@ function ctypes_ldouble_complex_sub(x,y) { return ctypes_ldouble_complex_make(x.
 
 //Provides: ctypes_ldouble_complex_mul
 //Requires: ctypes_ldouble_complex_make
-function ctypes_ldouble_complex_mul(x,y) { return ctypes_ldouble_complex_make(x.re * y.re - x.im * y.im, x.re * y.re + x.im * y.im); }
+function ctypes_ldouble_complex_mul(x,y) { return ctypes_ldouble_complex_make(x.re * y.re - x.im * y.im, x.re * y.im + x.im * y.re); }
 
 //Provides: ctypes_ldouble_complex_div
 //Requires: ctypes_ldouble_complex_make
 function ctypes_ldouble_complex_div(x,y) {
   var a = x.re, b = x.im, c = y.re, d = y.im;
+  if(y.re == 0 && y.im == 0){
+    return ctypes_ldouble_complex_make(x.re/0, x.im / 0);
+  }
   var re = ((a * c) +  (b * d)) / ((c * c) + (d * d));
   var im = ((b * c) - (a * d)) / ((c * c) + (d * d));
   return ctypes_ldouble_complex_make(re, im);

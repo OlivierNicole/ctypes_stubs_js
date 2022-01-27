@@ -1,9 +1,11 @@
 (executable
-  (name test)
-  (modes js)
-  (libraries ctypes ctypes_stubs_js)
-  (link_flags (:standard -linkall)))
+ (name test)
+ (modes js)
+ (libraries ctypes ctypes_stubs_js)
+ (link_flags
+  (:standard -linkall)))
 
 (rule
-  (alias runtest-js)
-  (action (run node %{dep:./test.bc.js})))
+ (alias runtest-js)
+ (action
+  (run node %{dep:./test.bc.js})))
