@@ -2,5 +2,6 @@
  (name ctypes_stubs_js)
  (public_name ctypes_stubs_js)
  (js_of_ocaml
-  (javascript_files runtime.js))
+  (javascript_files runtime.js)
+  (wasm_files error_messages.wat runtime.wat))
  (libraries integers_stubs_js))
