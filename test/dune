@@ -1,3 +1,7 @@
+(env
+  (_
+    (js_of_ocaml (targets js wasm))))
+
 (library
  (name test)
  (inline_tests
@@ -19,6 +23,16 @@
  (modes js native))
 
 (rule
- (alias runtest)
+ (alias runtest-js)
  (action
   (run node %{dep:./link.bc.js})))
+
+(rule
+  (alias runtest-wasm)
+  (deps link.bc.wasm.js)
+  (action
+    (run node %{deps})))
+
+(alias
+  (name runtest)
+  (deps (alias runtest-js) (alias runtest-wasm)))
